@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final MainBloc mainBloc = Provider.of<MainBloc>(context);
     retailerid = mainBloc.retailerid;
+    print(retailerid);
 
    return Scaffold(
      backgroundColor: Colors.orange,

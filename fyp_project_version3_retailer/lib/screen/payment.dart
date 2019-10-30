@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_project_version3_retailer/core/myroute.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:fyp_project_version3_retailer/bloc/main_bloc.dart';
@@ -17,7 +18,7 @@ class _PaymentState extends State<Payment> {
   showQR() {
     return Container(
       child: QrImage(
-        data: "retailerid='$retailerid'&amount='$passAmount'",
+        data: "&retailerid=" + retailerid +"&amount=" + passAmount,
         version: QrVersions.auto,
         size: 30,
         gapless: false,
@@ -236,14 +237,23 @@ class _PaymentCalculatorState extends State<PaymentCalculator> {
 
 //! WIDGET TO SHOW QR CODE
 class PaymentQr extends StatelessWidget {
+  String retailerid;
+  String passAmount;
+
   @override
   Widget build(BuildContext context) {
     final MainBloc mainBloc = Provider.of<MainBloc>(context);
+    retailerid = mainBloc.retailerid;
+    passAmount = mainBloc.amount;
+    
+    Future.delayed(Duration(seconds: 8),
+    () => Navigator.pushNamed(context, routeGotoHomepage));
+
 
     return Center(
       child: Container(
         child: QrImage(
-          data: mainBloc.amount.toString(),
+           data: "&retailerid=" + retailerid +"&amount=" + passAmount,
           version: QrVersions.auto,
           size: 320,
           gapless: false,
